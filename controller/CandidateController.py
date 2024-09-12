@@ -1,13 +1,8 @@
-from flask import Flask, json
+from flask import Flask, json, Blueprint, request, jsonify
 
-app = Flask(__name__)
+candidate_bp = Blueprint('candidate_bp', __name__)
 
-@app.route('/pinto', methods=['GET'])
+@candidate_bp.route('/ping', methods=['GET'])
 def checkHealth():
     return 'Servidor está funcionando!'
 
-if __name__ == '__main__':
-    app.run(debug=True)
-
-# @app.route('/allCandidates', method=['GET'])
-# def getAllCandidates():
