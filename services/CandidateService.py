@@ -14,4 +14,22 @@ class CandidateService:
         candidatos_do_partido = self.df[self.df.iloc[:, 8] == party_name]
         lista_candidatos = candidatos_do_partido.to_dict(orient='records')
         return lista_candidatos
+    
+    def get_by_number(self, candidate_number):
+        candidato = self.df[self.df['NR_CANDIDATO'] == int(candidate_number)]
+        return candidato.to_dict(orient='records')
+    
+    def add_candidate(self, data):
+        self.df = self.df._append(data, ignore_index=True)
+        return
 
+    def update_candidate(self, candidate_number, data):
+        candidato = self.df[self.df['NR_CANDIDATO'] == int(candidate_number)]
+        self.df = self.df.drop(candidato.index)
+        self.df = self.df._append(data, ignore_index=True)
+        return
+
+    def delete_candidate(self, candidate_number):
+        candidato = self.df[self.df['NR_CANDIDATO'] == int(candidate_number)]
+        self.df = self.df.drop(candidato.index)
+        return
